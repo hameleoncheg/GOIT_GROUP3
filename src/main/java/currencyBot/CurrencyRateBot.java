@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CurrencyRateBot extends TelegramLongPollingBot {
 
-    CurrencyRateApiService rateService = new PrivatBankCurrencyRateService();
+    //
     PrettyResponseConverter converter = new PrettyResponseConverter();
 
     @Override
@@ -29,25 +29,28 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-            List<RateResponseDto> rates = rateService.getRates();
 
-            SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
-            message.setChatId(update.getMessage().getChatId().toString());
-            message.setText( "Курс Приват Банка: " + "\n" +
-                    converter.prepareResponse(
-                            update.getMessage().getText(),
-                            rateService.getRates()
-                    )
+            String messageText = update.getMessage().getText();
+            if (messageText.equals("#Monobank") || messageText.equals("#PrivatBank") || messageText.equals("#NBUbank")) {
+                CurrencyRateApiService rateService = getRateService(update.getMessage().getText());
+                SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
+                message.setChatId(update.getMessage().getChatId().toString());
+                message.setText("Курс банка "+messageText+": " + "\n" +
+                        converter.prepareResponse(
+                                update.getMessage().getText(),
+                                rateService.getRates()
+                        )
 
-            );
-            setButtons(message);
+                );
+                setButtons(message);
 
-            try {
-                execute(message); // Call method to send the message
+                try {
+                    execute(message); // Call method to send the message
 
 
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -67,5 +70,18 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         keyboardRowList.add(keyboardFirstRow);
         replyKeyboardMarkup.setKeyboard(keyboardRowList);
 
+    }
+
+    private CurrencyRateApiService getRateService(String bank){
+        switch (bank) {
+            case "#Monobank":
+                return new MonoBankCurrencyRateService();
+            case "#PrivatBank":
+                return new PrivatBankCurrencyRateService();
+            case "#NBUbank":
+                return new NbuCurrencyRateService();
+
+                   }
+                   return new NbuCurrencyRateService();
     }
 }
