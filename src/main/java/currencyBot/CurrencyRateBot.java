@@ -33,7 +33,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
 
             SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
             message.setChatId(update.getMessage().getChatId().toString());
-            message.setText(
+            message.setText( "Курс Приват Банка: " + "\n" +
                     converter.prepareResponse(
                             update.getMessage().getText(),
                             rateService.getRates()
