@@ -9,7 +9,7 @@ public class PrettyResponseConverter {
     private static final String ERROR_MESSAGE = "Unknown command, write BUY or SELL";
     private static final String template = "Currency replCur, rate buy: replRateBay; rate sell: replRateSell;";
 
-    public String prepareResponse(String command, List<RateResponseDto> dtos) {
+    public String prepareResponse(List<RateResponseDto> dtos) {
 
         String response = "";
 

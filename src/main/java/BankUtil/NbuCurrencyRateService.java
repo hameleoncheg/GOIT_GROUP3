@@ -17,8 +17,17 @@ public class NbuCurrencyRateService implements CurrencyRateApiService {
     String url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
 
     private Gson gson = new Gson();
+
+    List<Currency> curr;
+    int numberAfterComma;
+
+    public NbuCurrencyRateService(List<Currency> curr, int numberAfterComma) {
+        this.curr = curr;
+        this.numberAfterComma = numberAfterComma;
+    }
+
     @Override
-    public List<RateResponseDto> getRates() throws IOException {
+    public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma) throws IOException {
         String text = null;
         text = Jsoup.connect(url).ignoreContentType(true).get().body().text();
         List<NbuCurrencyResponseDto> responseDtos = convertResponse(text);

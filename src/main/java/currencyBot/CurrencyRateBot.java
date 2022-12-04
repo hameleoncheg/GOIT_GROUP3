@@ -17,7 +17,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import settings.*;
 import menu.*;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CurrencyRateBot extends TelegramLongPollingBot {
     PrettyResponseConverter converter = new PrettyResponseConverter();
@@ -25,6 +31,11 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
     public String value;
     private Setting userSettings;
     private final static Object monitor = new Object();
+
+    public static Map<Long, Setting> settings = new HashMap<>();
+
+    static ExecutorService service = Executors.newSingleThreadExecutor();
+
     private CurrencyRateBot(String value) {
         // The following code emulates slow initialization.
         try {
@@ -63,13 +74,13 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         if (update.hasCallbackQuery()) {
             try {
                 handleQuery(update.getCallbackQuery());
-            } catch (TelegramApiException e) {
+            } catch (TelegramApiException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    private void handleQuery(CallbackQuery buttonQuery) throws TelegramApiException {
+    private void handleQuery(CallbackQuery buttonQuery) throws TelegramApiException, IOException {
         long chatId = buttonQuery.getMessage().getChatId();
         synchronized (monitor) {
             if (SetToJson.settings.get(chatId) == null) {
@@ -137,26 +148,66 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 .build());
     }
 
-    private CurrencyRateApiService getRateService(String bank){
+    private static CurrencyRateApiService getRateService(Banks bank, List<Currency> curr, int numberAfterComma){
         switch (bank) {
-            case "#Monobank":
+            case MONO:
                 return new MonoBankCurrencyRateService();
-            case "#PrivatBank":
-                return new PrivatBankCurrencyRateService();
-            case "#NBUbank":
-                return new NbuCurrencyRateService();
+            case PRIVAT:
+                return new PrivatBankCurrencyRateService(curr, numberAfterComma);
+            case NBU:
+                return new NbuCurrencyRateService(curr, numberAfterComma);
 
                    }
-                   return new NbuCurrencyRateService();
+                   return new NbuCurrencyRateService(curr, numberAfterComma);
     }
 
-    public void checkMainMenu(CallbackQuery buttonQuery) throws TelegramApiException {
+    public static String getInfo (Long chatId) throws IOException {
+
+       // service.execute(new SaveSets());
+       // StringBuilder messageToUser = new StringBuilder();
+
+        Setting userSetting = SetToJson.settings.get(chatId);
+        String bankName = userSetting.getSelectedBank().getBankNameUA();
+
+
+        int numberAfterComa = userSetting.getNumberAfterComa();
+        List<Currency> currencies = userSetting.getSelectedCurrency();
+        Banks bank = userSetting.getSelectedBank();
+
+        CurrencyRateApiService rateService = getRateService(bank, currencies, numberAfterComa);
+
+        PrettyResponseConverter converter = new PrettyResponseConverter();
+
+        StringBuilder messageToUser = new StringBuilder();
+        messageToUser.append(bankName).append("\n");
+        messageToUser.append(converter.prepareResponse(rateService.getRates(currencies, numberAfterComa)));
+
+
+//        for (Currency currency : currencies) {
+//            messageToUser.append("Курс купівлі ")
+//                    .append(currency.getCurrencyName())
+//                    .append(" - ")
+//                    .append(rateService.getRates(currencies, numberAfterComa))
+//                    //.append(bankInfo.getBuyRate(currency) == 0 ? "немає купівлі" :
+//                    //       format("%." + numberAfterComa + "f" , bankInfo.getBuyRate(currency)))
+//                    .append("\n");
+//            messageToUser.append("Курс продажу ")
+//                    .append(currency.getCurrencyName())
+//                    .append(" - ")
+//                    // .append(bankInfo.getSellRate(currency) == 0 ? "немає продажу" :
+//                    //         format("%." + numberAfterComa + "f" , bankInfo.getSellRate(currency)))
+//                    .append("\n");
+//        }
+        return messageToUser.toString();
+    }
+
+    public void checkMainMenu(CallbackQuery buttonQuery) throws TelegramApiException, IOException {
         long chatId = buttonQuery.getMessage().getChatId();
         String dataButtonQuery = buttonQuery.getData();
         if (Buttons.convertToEnum(dataButtonQuery) != null){
             switch (Buttons.convertToEnum(dataButtonQuery)) {
                 case GET_INFO:
-                    printMessage(chatId, SetToJson.getInfo(chatId));
+                    printMessage(chatId, getInfo(chatId));
                     printMessage(chatId, MenuStart.keyboardStart(), "Щоб отримати інфо натисність кнопку");
                     break;
                 case SETTINGS:
