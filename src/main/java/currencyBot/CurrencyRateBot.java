@@ -3,6 +3,7 @@ package currencyBot;
 import menu.MenuStart;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
@@ -149,6 +150,16 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 .build());
     }
 
+    private void updateMessage(CallbackQuery buttonQuery, InlineKeyboardMarkup keyboard)
+            throws TelegramApiException {
+        long chatId = buttonQuery.getMessage().getChatId();
+        int messageId = buttonQuery.getMessage().getMessageId();
+        execute(EditMessageReplyMarkup.builder()
+                .chatId(chatId)
+                .messageId(messageId)
+                .replyMarkup(keyboard)
+                .build());
+    }
     private CurrencyRateApiService getRateService(String bank){
         switch (bank) {
             case "#Monobank":
