@@ -40,7 +40,7 @@ public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
                 .getType();
         List<PrivatBankCurrencyResponseDto> responseDtos = gson.fromJson(response, type);
         return  responseDtos.stream()
-                .filter(item -> !Currency.RUR.equals(item.getCcy()))
+             //   .filter(item -> !Currency.RUR.equals(item.getCcy()))
                 .collect(Collectors.toList());
     }
 
