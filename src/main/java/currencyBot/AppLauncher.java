@@ -8,7 +8,7 @@ public class AppLauncher {
     public static void main(String[] args) {
 
         try {
-            CurrencyRateBot currencyRateBot = CurrencyRateBot.getInstance("currencyInfoBot");
+            CurrencyRateBot currencyRateBot = CurrencyRateBot.getInstance("currencyRateBot");
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(currencyRateBot);
         } catch (TelegramApiException e) {
