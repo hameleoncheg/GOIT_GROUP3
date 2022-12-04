@@ -1,26 +1,29 @@
 package settings;
+import currencyBot.Currency;
+
+import java.util.List;
 
 public class Setting {
     private Long chatId;
     private NumberAfterComa numberAfterComa;
     private NotifTime notifTime;
     private TimeZone timeZone;
-   // private Banks selectedBank;
-   // private List<Currency> selectedCurrency;
-   // private Language language;
+    private Banks selectedBank;
+    private List<Currency> selectedCurr;
 
-      public Setting() {}
 
-    public Setting(Long chatId, NumberAfterComa numberAfterComa, NotifTime notifTime, TimeZone timeZone){
-                   //Banks selectedBank, List<Currency> selectedCurrency, Language language,
+    public Setting() { }
+
+    public Setting(Long chatId, NumberAfterComa numberAfterComa, Banks selectedBank,
+                   List<Currency> selectedCurr, NotifTime notifTime, TimeZone timeZone) {
         this.chatId = chatId;
         this.numberAfterComa = numberAfterComa;
         this.notifTime = notifTime;
         this.timeZone = timeZone;
-        // this.language = language;
-        //  this.selectedBank = selectedBank;
-        // this.selectedCurrency = selectedCurrency;
+        this.selectedBank = selectedBank;
+        this.selectedCurr = selectedCurr;
     }
+
 
     public void setChatId(Long chatId) {
         this.chatId = chatId;
@@ -38,7 +41,7 @@ public class Setting {
         this.numberAfterComa = numberAfterComa;
     }
 
-    /*
+
     public Banks getSelectedBank() {
         return selectedBank;
     }
@@ -49,20 +52,14 @@ public class Setting {
     }
 
     public List<Currency> getSelectedCurrency() {
-        return selectedCurrency;
+        return selectedCurr;
     }
 
-    public void setSelectedCurrency(List<Currency> selectedCurrency) {
-        this.selectedCurrency = selectedCurrency;
-    }
-    public void setSelectedLanguage(Language language) {
-        this.language = language;
+    public void setSelectedCurrency(List<Currency> selectedCurr) {
+        this.selectedCurr = selectedCurr;
     }
 
-    public Language getSelectedLanguage() {
-        return language;
-    }
-*/
+
     public NotifTime getNotifTime() {
         return notifTime;
     }
