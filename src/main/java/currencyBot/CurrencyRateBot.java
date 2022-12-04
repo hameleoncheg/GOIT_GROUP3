@@ -1,8 +1,9 @@
 package currencyBot;
 
-import menu.MenuStart;
+import menu.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
@@ -148,8 +149,51 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 .chatId(chatID)
                 .build());
     }
+    private void updateMessage(CallbackQuery buttonQuery, InlineKeyboardMarkup keyboard)
+            throws TelegramApiException {
+        long chatId = buttonQuery.getMessage().getChatId();
+        int messageId = buttonQuery.getMessage().getMessageId();
+        execute(EditMessageReplyMarkup.builder()
+                .chatId(chatId)
+                .messageId(messageId)
+                .replyMarkup(keyboard)
+                .build());
+    }
+    public void checkMainMenu(CallbackQuery buttonQuery) throws TelegramApiException {
+        long chatId = buttonQuery.getMessage().getChatId();
+        String dataButtonQuery = buttonQuery.getData();
+        if (Buttons.convertToEnum(dataButtonQuery) != null){
+            switch (Buttons.convertToEnum(dataButtonQuery)) {
+                case GET_INFO:
+                    printMessage(chatId, SetToJson.getInfo(chatId));
+                    printMessage(chatId, MenuStart.keyboardStart(), "Щоб отримати інфо натисність кнопку");
+                    break;
+                case SETTINGS:
+                    printMessage(chatId, MenuSettings.keyboardSettings(SetToJson.settings.get(chatId)), "Виберіть налаштування");
+                    break;
+                case BACK_TO_START:
+                    printMessage(chatId, MenuStart.keyboardStart(), "Щоб отримати інфо натисність кнопку");
+                    break;
+                case NUM_DECIMAL_PLACES:
+                    updateMessage(buttonQuery, MenuNumbAfterComa.keyboardNumbAfterComa(chatId));
+                    break;
+                case BANK:
+                    updateMessage(buttonQuery, MenuBank.keyboardBanks(chatId));
+                    break;
+                case CURRENCY:
+                    updateMessage(buttonQuery, MenuCurrency.keyboardCurrency(chatId));
+                    break;
+                case NOTIFICATION:
+                    updateMessage(buttonQuery, MenuNotification.keyboardNotification(chatId));
+                    break;
+                case ZONEID:
+                    updateMessage(buttonQuery, MenuTimeZone.keyboardTimeZone(chatId));
+                    break;
+            }
+        }
+    }
 
-    private CurrencyRateApiService getRateService(String bank){
+        private CurrencyRateApiService getRateService(String bank){
         switch (bank) {
             case "#Monobank":
                 return new MonoBankCurrencyRateService();
