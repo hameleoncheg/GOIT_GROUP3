@@ -104,6 +104,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 userSettings = SetToJson.settings.get(chatId);
             }
         }
+        checkMainMenu(buttonQuery);
     }
     private void handleMessage(Message message) throws TelegramApiException {
         long chatId = message.getChatId();

@@ -6,7 +6,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class AppLauncher {
     public static void main(String[] args) {
-
+     // тестовое изменение
         try {
             CurrencyRateBot currencyRateBot = CurrencyRateBot.getInstance("currencyRateBot");
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
