@@ -1,8 +1,10 @@
-package currencyBot;
+package BankUtil;
 
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import currencyBot.CurrencyRateApiService;
+import currencyBot.RateResponseDto;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;

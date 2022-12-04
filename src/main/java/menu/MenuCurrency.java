@@ -26,9 +26,9 @@ public class MenuCurrency {
                 .text(Currency.EUR.getCurrencyName() + getButtonStatus(Currency.EUR, selectedCurrencies))
                 .callbackData(Currency.EUR.getCurrencyName())
                 .build();
-        InlineKeyboardButton buttonUAH = InlineKeyboardButton.builder()
-                .text(Currency.UAH.getCurrencyName() + getButtonStatus(Currency.UAH, selectedCurrencies))
-                .callbackData(Currency.UAH.getCurrencyName())
+        InlineKeyboardButton buttonPLN = InlineKeyboardButton.builder()
+                .text(Currency.PLN.getCurrencyName() + getButtonStatus(Currency.PLN, selectedCurrencies))
+                .callbackData(Currency.PLN.getCurrencyName())
                 .build();
 
         InlineKeyboardButton buttonHome = InlineKeyboardButton.builder()
@@ -41,7 +41,7 @@ public class MenuCurrency {
                 .build();
         keyboardMenuCurrency1.add(buttonUsd);
         keyboardMenuCurrency2.add(buttonEur);
-        keyboardMenuCurrency3.add(buttonUAH);
+        keyboardMenuCurrency3.add(buttonPLN);
         keyboardMenuCurrency5.add(buttonHome);
         keyboardMenuCurrency5.add(buttonBack);
         keyboardMenuCurrency.add(keyboardMenuCurrency1);

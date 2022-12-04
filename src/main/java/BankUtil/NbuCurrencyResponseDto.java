@@ -1,4 +1,6 @@
-package currencyBot;
+package BankUtil;
+
+import currencyBot.Currency;
 
 import java.math.BigDecimal;
 
