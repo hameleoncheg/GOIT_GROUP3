@@ -2,40 +2,68 @@ package settings;
 
 import java.util.List;
 
-public class UserSetDTO {
-    private Long chatId;
-    private String numberAfterComa;
-    private String notifTime;
-    private String timeZone;
-    private String selectBank;
-    private String textInfo;
-    private List<String> selectCurrency;
+    public class UserSetDTO {
+        private Long chatId;
+        private String numberAfterComa;
+        private String notifTime;
+        private String timeZone;
+        private String selectBank;
+        private String textInfo;
+        private List<String> selectCurrency;
 
-    public void setChatId(Long chatId) {
-        this.chatId = chatId;
-    }
+        public Long getChatId() {
+            return chatId;
+        }
 
-    public void setNumberAfterComa(String numberAfterComa) {
-        this.numberAfterComa = numberAfterComa;
-    }
+        public void setChatId(Long chatId) {
+            this.chatId = chatId;
+        }
 
-    public void setNotifTime(String notifTime) {
-        this.notifTime = notifTime;
-    }
+        public String getNumberAfterComa() {
+            return numberAfterComa;
+        }
 
-    public void setTimeZone(String timeZone) {
-        this.timeZone = timeZone;
-    }
+        public void setNumberAfterComa(String numberAfterComa) {
+            this.numberAfterComa = numberAfterComa;
+        }
 
-    public void setSelectBank(String selectBank) {
-        this.selectBank = selectBank;
-    }
+        public String getNotifTime() {
+            return notifTime;
+        }
 
-    public void setTextInfo(String textInfo) {
-        this.textInfo = textInfo;
-    }
+        public void setNotifTime(String notifTime) {
+            this.notifTime = notifTime;
+        }
 
-    public void setSelectCurrency(List<String> selectCurrency) {
-        this.selectCurrency = selectCurrency;
+        public String getTimeZone() {
+            return timeZone;
+        }
+
+        public void setTimeZone(String timeZone) {
+            this.timeZone = timeZone;
+        }
+
+        public String getSelectBank() {
+            return selectBank;
+        }
+
+        public void setSelectBank(String selectBank) {
+            this.selectBank = selectBank;
+        }
+
+        public String getTextInfo() {
+            return textInfo;
+        }
+
+        public void setTextInfo(String textInfo) {
+            this.textInfo = textInfo;
+        }
+
+        public List<String> getSelectCurrency() {
+            return selectCurrency;
+        }
+
+        public void setSelectCurrency(List<String> selectCurrency) {
+            this.selectCurrency = selectCurrency;
+        }
     }
-}
