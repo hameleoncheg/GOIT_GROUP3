@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class MenuBank {
-    public InlineKeyboardMarkup keyboardBanks(long chatId) {
+    public static InlineKeyboardMarkup keyboardBanks(long chatId) {
         Setting userSetting = SetToJson.settings.get(chatId);
         Banks selectedBank = userSetting.getSelectedBank();
         List<List<InlineKeyboardButton>> keyboardMenuBanks = new ArrayList<>();
@@ -49,7 +49,7 @@ public class MenuBank {
         return InlineKeyboardMarkup.builder().keyboard(keyboardMenuBanks).build();
     }
 
-    private java.lang.String getButtonStatus(Banks current, Banks selected) {
+    private static java.lang.String getButtonStatus(Banks current, Banks selected) {
         if (current == selected) {
             return "✅";
         }

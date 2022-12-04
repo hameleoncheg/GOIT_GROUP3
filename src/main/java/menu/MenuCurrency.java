@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuCurrency {
-    public InlineKeyboardMarkup keyboardCurrency(long chatId) {
+    public static InlineKeyboardMarkup keyboardCurrency(long chatId) {
         Setting userSetting =  SetToJson.settings.get(chatId);
         List<Currency> selectedCurrencies = userSetting.getSelectedCurrency();
         List<List<InlineKeyboardButton>> keyboardMenuCurrency = new ArrayList<>();

@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class MenuNumbAfterComa {
-    public InlineKeyboardMarkup keyboardNumbAfterComa(long chatId) {
+    public static InlineKeyboardMarkup keyboardNumbAfterComa(long chatId) {
         Setting userSetting = SetToJson.settings.get(chatId);
         int selectedNumDecPlaces = userSetting.getNumberAfterComa();
 
@@ -51,7 +51,7 @@ public class MenuNumbAfterComa {
         return InlineKeyboardMarkup.builder().keyboard(keyboard).build();
     }
 
-    private String getButtonStatus(int current, int selected) {
+    private static String getButtonStatus(int current, int selected) {
         if (current == selected) {
             return "✅";
         }

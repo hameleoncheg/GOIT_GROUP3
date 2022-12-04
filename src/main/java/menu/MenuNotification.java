@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuNotification {
-    public InlineKeyboardMarkup keyboardNotification(long chatId) {
+    public static InlineKeyboardMarkup keyboardNotification(long chatId) {
         Setting userSetting = SetToJson.settings.get(chatId);
         NotifTime selectedNotificationTime = userSetting.getNotifTime();
         List<List<InlineKeyboardButton>> keyboardMenuNotification = new ArrayList<>();
@@ -89,7 +89,7 @@ public class MenuNotification {
         return InlineKeyboardMarkup.builder().keyboard(keyboardMenuNotification).build();
     }
 
-    private String getButtonStatus(NotifTime current, NotifTime selected) {
+    private static String getButtonStatus(NotifTime current, NotifTime selected) {
         if (current == selected) {
             return "✅";
         }

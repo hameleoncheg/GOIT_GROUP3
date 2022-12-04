@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuTimeZone {
-    public InlineKeyboardMarkup keyboardTimeZone(long chatId) {
+    public static InlineKeyboardMarkup keyboardTimeZone(long chatId) {
         Setting userSetting = SetToJson.settings.get(chatId);
         TimeZone selectedZoneID = userSetting.getTimeZone();
         List<List<InlineKeyboardButton>> keyboardMZoneId = new ArrayList<>();
@@ -177,7 +177,7 @@ public class MenuTimeZone {
         return InlineKeyboardMarkup.builder().keyboard(keyboardMZoneId).build();
     }
 
-    private String getButtonStatus(TimeZone current, TimeZone selected) {
+    private static String getButtonStatus(TimeZone current, TimeZone selected) {
         if (current == selected) {
             return "✅";
         }
