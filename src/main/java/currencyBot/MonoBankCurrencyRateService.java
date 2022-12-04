@@ -28,8 +28,8 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
                     RateResponseDto dto = new RateResponseDto();
                     dto.setCurrencyTo(item.getCurrencyA());
                     dto.setCurrencyFrom(item.getCurrencyB());
-                    dto.setRateBuy(item.getRateBuy());
-                    dto.setRateSell(item.getRateSell());
+                    dto.setRateBuy(CurrencyRateApiService.RoundToDecimalPlaces(item.getRateBuy(),3));
+                    dto.setRateSell(CurrencyRateApiService.RoundToDecimalPlaces(item.getRateSell(),3));
                     return dto;
                 })
                 .collect(Collectors.toList());
