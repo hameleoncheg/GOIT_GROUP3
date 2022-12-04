@@ -3,6 +3,7 @@ package BankUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import currencyBot.Currency;
 import currencyBot.CurrencyRateApiService;
 import currencyBot.RateResponseDto;
 import org.jsoup.Jsoup;
@@ -13,17 +14,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
+    List<Currency> curr;
+    int numberAfterComma;
+
+    public PrivatBankCurrencyRateService(List<Currency> curr, int numberAfterComma) {
+        this.curr = curr;
+        this.numberAfterComma = numberAfterComma;
+    }
+
     String url = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11";
     private Gson gson = new Gson();
 
-    public List<RateResponseDto> getRates(){
+    @Override
+    public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma){
         String text = null;
         try {
             text = Jsoup.connect(url).ignoreContentType(true).get().body().text();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        List<PrivatBankCurrencyResponseDto> responseDtos = convertResponse(text);
+        List<PrivatBankCurrencyResponseDto> responseDtos = convertResponse(text, curr);
         return responseDtos.stream()
                 .map(item -> {
                     RateResponseDto dto = new RateResponseDto();
@@ -36,13 +46,14 @@ public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
                 .collect(Collectors.toList());
     }
 
-    private List<PrivatBankCurrencyResponseDto> convertResponse(String response) {
+    private List<PrivatBankCurrencyResponseDto> convertResponse(String response,  List<Currency> curr) {
         Type type = TypeToken
                 .getParameterized(List.class, PrivatBankCurrencyResponseDto.class)
                 .getType();
         List<PrivatBankCurrencyResponseDto> responseDtos = gson.fromJson(response, type);
         return  responseDtos.stream()
              //   .filter(item -> !Currency.RUR.equals(item.getCcy()))
+                .filter(item -> curr.contains(item.getCcy()))
                 .collect(Collectors.toList());
     }
 
