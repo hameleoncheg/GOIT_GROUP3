@@ -193,7 +193,18 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         }
     }
 
-        private CurrencyRateApiService getRateService(String bank){
+    private void updateMessage(CallbackQuery buttonQuery, InlineKeyboardMarkup keyboard)
+            throws TelegramApiException {
+        long chatId = buttonQuery.getMessage().getChatId();
+        int messageId = buttonQuery.getMessage().getMessageId();
+        execute(EditMessageReplyMarkup.builder()
+                .chatId(chatId)
+                .messageId(messageId)
+                .replyMarkup(keyboard)
+                .build());
+    }
+    private CurrencyRateApiService getRateService(String bank){
+
         switch (bank) {
             case "#Monobank":
                 return new MonoBankCurrencyRateService();
