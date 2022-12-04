@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuStart {
-    public InlineKeyboardMarkup keyboardStart(){
+    public static InlineKeyboardMarkup keyboardStart(){
         List<List<InlineKeyboardButton>> keyboardMenuStart = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSRow1 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSRow2 = new ArrayList<>();

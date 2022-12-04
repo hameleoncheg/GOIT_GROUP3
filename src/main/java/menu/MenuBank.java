@@ -49,7 +49,7 @@ public class MenuBank {
         return InlineKeyboardMarkup.builder().keyboard(keyboardMenuBanks).build();
     }
 
-    private String getButtonStatus(Banks current, Banks selected) {
+    private java.lang.String getButtonStatus(Banks current, Banks selected) {
         if (current == selected) {
             return "✅";
         }

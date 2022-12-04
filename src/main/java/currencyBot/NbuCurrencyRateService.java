@@ -15,13 +15,9 @@ public class NbuCurrencyRateService implements CurrencyRateApiService{
 
     private Gson gson = new Gson();
     @Override
-    public List<RateResponseDto> getRates(){
+    public List<RateResponseDto> getRates() throws IOException {
         String text = null;
-        try {
-            text = Jsoup.connect(url).ignoreContentType(true).get().body().text();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        text = Jsoup.connect(url).ignoreContentType(true).get().body().text();
         List<NbuCurrencyResponseDto> responseDtos = convertResponse(text);
         return responseDtos.stream()
                 .map(item -> {
