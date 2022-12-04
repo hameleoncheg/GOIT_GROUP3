@@ -1,7 +1,10 @@
-package currencyBot;
+package BankUtil;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import currencyBot.Currency;
+import currencyBot.CurrencyRateApiService;
+import currencyBot.RateResponseDto;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
@@ -9,7 +12,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NbuCurrencyRateService implements CurrencyRateApiService{
+public class NbuCurrencyRateService implements CurrencyRateApiService {
 
     String url = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
 

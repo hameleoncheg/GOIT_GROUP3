@@ -1,6 +1,10 @@
 package currencyBot;
 
-import menu.*;
+import BankUtil.MonoBankCurrencyRateService;
+import BankUtil.NbuCurrencyRateService;
+import BankUtil.PrivatBankCurrencyRateService;
+import menu.MenuStart;
+import menu.MenuTimeZone;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
@@ -9,14 +13,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import settings.*;
+import menu.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class CurrencyRateBot extends TelegramLongPollingBot {
@@ -67,31 +67,6 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 throw new RuntimeException(e);
             }
         }
-        /*
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String messageText = update.getMessage().getText();
-            if (messageText.equals("#Monobank") || messageText.equals("#PrivatBank") || messageText.equals("#NBUbank")) {
-                CurrencyRateApiService rateService = getRateService(update.getMessage().getText());
-                SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
-                message.setChatId(update.getMessage().getChatId().toString());
-                message.setText("Курс банка "+messageText+": " + "\n" +
-                        converter.prepareResponse(
-                                update.getMessage().getText(),
-                                rateService.getRates()
-                        )
-
-                );
-                //setButtons(message);
-
-                try {
-                    execute(message); // Call method to send the message
-
-
-                } catch (TelegramApiException e) {
-                    e.printStackTrace();
-                }
-            }
-        }*/
     }
 
     private void handleQuery(CallbackQuery buttonQuery) throws TelegramApiException {
@@ -104,6 +79,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 userSettings = SetToJson.settings.get(chatId);
             }
         }
+        checkMainMenu(buttonQuery);
     }
     private void handleMessage(Message message) throws TelegramApiException {
         long chatId = message.getChatId();
@@ -149,6 +125,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 .chatId(chatID)
                 .build());
     }
+
     private void updateMessage(CallbackQuery buttonQuery, InlineKeyboardMarkup keyboard)
             throws TelegramApiException {
         long chatId = buttonQuery.getMessage().getChatId();
@@ -159,6 +136,20 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                 .replyMarkup(keyboard)
                 .build());
     }
+
+    private CurrencyRateApiService getRateService(String bank){
+        switch (bank) {
+            case "#Monobank":
+                return new MonoBankCurrencyRateService();
+            case "#PrivatBank":
+                return new PrivatBankCurrencyRateService();
+            case "#NBUbank":
+                return new NbuCurrencyRateService();
+
+                   }
+                   return new NbuCurrencyRateService();
+    }
+
     public void checkMainMenu(CallbackQuery buttonQuery) throws TelegramApiException {
         long chatId = buttonQuery.getMessage().getChatId();
         String dataButtonQuery = buttonQuery.getData();
@@ -194,17 +185,5 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
     }
 
 
-    private CurrencyRateApiService getRateService(String bank){
 
-        switch (bank) {
-            case "#Monobank":
-                return new MonoBankCurrencyRateService();
-            case "#PrivatBank":
-                return new PrivatBankCurrencyRateService();
-            case "#NBUbank":
-                return new NbuCurrencyRateService();
-
-                   }
-                   return new NbuCurrencyRateService();
-    }
 }
