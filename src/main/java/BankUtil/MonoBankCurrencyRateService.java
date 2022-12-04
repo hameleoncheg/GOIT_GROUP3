@@ -1,8 +1,11 @@
-package currencyBot;
+package BankUtil;
 
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import currencyBot.Currency;
+import currencyBot.CurrencyRateApiService;
+import currencyBot.RateResponseDto;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
@@ -41,7 +44,7 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
                 .getType();
 
         Map<Integer, Currency> currs = Map.of(
-                980, Currency.UAH,
+                980, Currency.PLN,
                 840, Currency.USD,
                 978, Currency.EUR
         );
@@ -58,7 +61,7 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
                 })
                 //.filter(item -> !Currency.RUR.equals(item.getCurrencyCodeA()))
                 .filter(item -> item.getCurrencyA() != null)
-                .filter(item -> item.getCurrencyB() == Currency.UAH)
+                .filter(item -> item.getCurrencyB() == Currency.PLN)
                 .collect(Collectors.toList());
     }
 

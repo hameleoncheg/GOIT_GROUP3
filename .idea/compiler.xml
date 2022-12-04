@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="GOIT_Vlad" />
+        <module name="GOIT_GROUP3_VLAD" />
         <module name="GOIT_GROUP3" />
       </profile>
     </annotationProcessing>
