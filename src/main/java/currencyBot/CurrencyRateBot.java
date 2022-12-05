@@ -153,12 +153,12 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
             case MONO:
                 return new MonoBankCurrencyRateService();
             case PRIVAT:
-                return new PrivatBankCurrencyRateService(curr, numberAfterComma);
+                return new PrivatBankCurrencyRateService();
             case NBU:
-                return new NbuCurrencyRateService(curr, numberAfterComma);
+                return new NbuCurrencyRateService();
 
                    }
-                   return new NbuCurrencyRateService(curr, numberAfterComma);
+                   return new NbuCurrencyRateService();
     }
 
     public static String getInfo (Long chatId) throws IOException {
@@ -233,8 +233,14 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                     break;
             }
         }
+        //Add/delete curr from settings and refresh menu currencies
+        Currency curr = Currency.convertToEnum(dataButtonQuery);
+        if (curr != null){
+            Setting userSetting = SetToJson.settings.get(chatId);
+            userSetting.addRemoveCurrency(curr);
+            updateMessage(buttonQuery, MenuCurrency.keyboardCurrency(chatId));
+        }
     }
-
 
 
 }

@@ -17,11 +17,6 @@ public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
     List<Currency> curr;
     int numberAfterComma;
 
-    public PrivatBankCurrencyRateService(List<Currency> curr, int numberAfterComma) {
-        this.curr = curr;
-        this.numberAfterComma = numberAfterComma;
-    }
-
     String url = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11";
     private Gson gson = new Gson();
 

@@ -18,6 +18,10 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
     String url = "https://api.monobank.ua/bank/currency";
     private Gson gson = new Gson();
 
+    public MonoBankCurrencyRateService() {
+
+    }
+
     public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma){
         String text = null;
         try {

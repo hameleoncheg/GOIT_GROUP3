@@ -21,11 +21,6 @@ public class NbuCurrencyRateService implements CurrencyRateApiService {
     List<Currency> curr;
     int numberAfterComma;
 
-    public NbuCurrencyRateService(List<Currency> curr, int numberAfterComma) {
-        this.curr = curr;
-        this.numberAfterComma = numberAfterComma;
-    }
-
     @Override
     public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma) throws IOException {
         String text = null;

@@ -59,6 +59,13 @@ public class Setting {
         this.selectedCurr = selectedCurr;
     }
 
+    public void addRemoveCurrency(Currency curr) {
+        if (selectedCurr.contains(curr)) {
+            selectedCurr.remove(curr);
+        } else {
+            selectedCurr.add(curr);
+        }
+    }
 
     public NotifTime getNotifTime() {
         return notifTime;
