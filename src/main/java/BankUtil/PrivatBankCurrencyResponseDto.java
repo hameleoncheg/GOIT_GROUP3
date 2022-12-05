@@ -3,6 +3,7 @@ package BankUtil;
 import currencyBot.Currency;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class PrivatBankCurrencyResponseDto {
     private Currency ccy;
@@ -43,10 +44,23 @@ public class PrivatBankCurrencyResponseDto {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PrivatBankCurrencyResponseDto)) return false;
+        PrivatBankCurrencyResponseDto aPrivat = (PrivatBankCurrencyResponseDto) o;
+        return Objects.equals(ccy, aPrivat.ccy) && Objects.equals(base_ccy, aPrivat.base_ccy);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ccy, base_ccy);
+    }
+
+    @Override
     public String toString() {
         return "PrivatBankCurrencyResponseDto{" +
-                "ccy=" + ccy +
-                ", base_ccy=" + base_ccy +
+                "ccy=" + ccy +'\'' +
+                ", base_ccy=" + base_ccy +'\'' +
                 ", buy=" + buy +
                 ", sale=" + sale +
                 '}';
