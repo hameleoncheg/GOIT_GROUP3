@@ -24,21 +24,21 @@ public class SetToJson {
 
     static ExecutorService service = Executors.newSingleThreadExecutor();
 
-        public static File fileSettingsGsonCheck() {
-            File settingGsonFile = new File(SETTING_GSON_PATH);
-            if (!settingGsonFile.exists()) {
-                System.out.println("Create Path for Gson file Settings - " + settingGsonFile.getParentFile().mkdirs());
-                try {
-                    System.out.println("Create new Gson file Settings - " + settingGsonFile.createNewFile());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+    public static File fileSettingsGsonCheck() {
+        File settingGsonFile = new File(SETTING_GSON_PATH);
+        if (!settingGsonFile.exists()) {
+            System.out.println("Create Path for Gson file Settings - " + settingGsonFile.getParentFile().mkdirs());
+            try {
+                System.out.println("Create new Gson file Settings - " + settingGsonFile.createNewFile());
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            return settingGsonFile;
         }
+        return settingGsonFile;
+    }
 
     public void load() {
-             synchronized (monitor) {
+        synchronized (monitor) {
             try {
                 UserHashDTO.userHashDTO = new ObjectMapper().readValue(fileSettingsGsonCheck(),
                         new TypeReference<Map<Long, UserSetDTO>>() {
@@ -68,8 +68,8 @@ public class SetToJson {
 
                 outputSetting.setChatId(v.getChatId());
                 outputSetting.setNumberAfterComa(parseNumberAfterComa(v.getNumberAfterComa()));
-          //      outputSetting.setSelectedBank(parseSelectedBank(v.getSelectedBank()));
-           //     outputSetting.setSelectedCurrency(parseCurrency(v.getSelectedCurrency()));
+                //    outputSetting.setSelectedBank(parseSelectedBank(v.getSelectedBank()));
+                //     outputSetting.setSelectedCurrency(parseCurrency(v.getSelectedCurrency()));
                 outputSetting.setNotifTime(parseNotifTime(v.getNotifTime()));
                 outputSetting.setTimeZone(parseTimeZone(v.getTimeZone()));
                 outputMap.put(v.getChatId(), outputSetting);
