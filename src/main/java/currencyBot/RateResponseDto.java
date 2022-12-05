@@ -1,52 +1,75 @@
 package currencyBot;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class RateResponseDto {
-    private Currency currencyFrom;
-    private Currency currencyTo;
-    private BigDecimal rateBuy;
-    private BigDecimal rateSell;
+    private BigDecimal USD_buy;
+    private BigDecimal USD_sell;
+    private BigDecimal EUR_buy;
+    private BigDecimal EUR_sell;
 
-    public Currency getCurrencyFrom() {
-        return currencyFrom;
+
+    public void setUSD_buy(BigDecimal USD_buy) {
+        this.USD_buy = USD_buy;
     }
 
-    public void setCurrencyFrom(Currency currencyFrom) {
-        this.currencyFrom = currencyFrom;
+    public void setUSD_sell(BigDecimal USD_sell) {
+        this.USD_sell = USD_sell;
     }
 
-    public Currency getCurrencyTo() {
-        return currencyTo;
+    public void setEUR_buy(BigDecimal EUR_buy) {
+        this.EUR_buy = EUR_buy;
     }
 
-    public void setCurrencyTo(Currency currencyTo) {
-        this.currencyTo = currencyTo;
+    public void setEUR_sell(BigDecimal EUR_sell) {
+        this.EUR_sell = EUR_sell;
     }
 
-    public BigDecimal getRateBuy() {
-        return rateBuy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RateResponseDto bank = (RateResponseDto) o;
+        return Objects.equals(USD_buy, bank.USD_buy)
+                && Objects.equals(USD_sell, bank.USD_sell)
+                && Objects.equals(EUR_buy, bank.EUR_buy)
+                && Objects.equals(EUR_sell, bank.EUR_sell);
     }
 
-    public void setRateBuy(BigDecimal rateBuy) {
-        this.rateBuy = rateBuy;
+    @Override
+    public int hashCode() {
+        return Objects.hash(USD_buy, USD_sell, EUR_buy, EUR_sell);
     }
 
-    public BigDecimal getRateSell() {
-        return rateSell;
+    public BigDecimal getRateBuy(Currency currency) {
+        switch (currency) {
+            case EUR:
+                return this.EUR_buy;
+            case USD:
+                return this.USD_buy;
+        }
+        return null;
     }
 
-    public void setRateSell(BigDecimal rateSell) {
-        this.rateSell = rateSell;
+    public BigDecimal getRateSell(Currency currency) {
+        switch (currency) {
+            case EUR:
+                return this.EUR_sell;
+            case USD:
+                return this.USD_sell;
+        }
+        return null;
     }
+
 
     @Override
     public String toString() {
         return "RateResponseDto{" +
-                "currencyFrom=" + currencyFrom +
-                ", currencyTo=" + currencyTo +
-                ", rateBuy=" + rateBuy +
-                ", rateSell=" + rateSell +
+                ", USD_buy=" + USD_buy +
+                ", USD_sell=" + USD_sell +
+                ", EUR_buy=" + EUR_buy +
+                ", EUR_sell=" + EUR_sell +
                 '}';
     }
 }
