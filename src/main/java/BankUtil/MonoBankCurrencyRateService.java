@@ -29,26 +29,26 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        List<MonoBankCurrencyResponseDto> responseDtos = convertResponse(text);
+        List<MonoBankCurrencyResponseDto> responseDtos = convertResponse(text, curr);
         return responseDtos.stream()
                 .map(item -> {
                     RateResponseDto dto = new RateResponseDto();
                     dto.setCurrencyTo(item.getCurrencyA());
                     dto.setCurrencyFrom(item.getCurrencyB());
-                    dto.setRateBuy(CurrencyRateApiService.RoundToDecimalPlaces(item.getRateBuy(),3));
-                    dto.setRateSell(CurrencyRateApiService.RoundToDecimalPlaces(item.getRateSell(),3));
+                    dto.setRateBuy(CurrencyRateApiService.RoundToDecimalPlaces(item.getRateBuy(),numberAfterComma));
+                    dto.setRateSell(CurrencyRateApiService.RoundToDecimalPlaces(item.getRateSell(),numberAfterComma));
                     return dto;
                 })
                 .collect(Collectors.toList());
     }
 
-    private List<MonoBankCurrencyResponseDto> convertResponse(String response) {
+    private List<MonoBankCurrencyResponseDto> convertResponse(String response, List<Currency> curr) {
         Type type = TypeToken
                 .getParameterized(List.class, MonoBankCurrencyResponseDto.class)
                 .getType();
 
         Map<Integer, Currency> currs = Map.of(
-                980, Currency.PLN,
+                980, Currency.UAH,
                 840, Currency.USD,
                 978, Currency.EUR
         );
@@ -65,7 +65,8 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
                 })
                 //.filter(item -> !Currency.RUR.equals(item.getCurrencyCodeA()))
                 .filter(item -> item.getCurrencyA() != null)
-                .filter(item -> item.getCurrencyB() == Currency.PLN)
+                .filter(item -> item.getCurrencyB() == Currency.UAH)
+                .filter(item -> curr.contains(item.getCurrencyA()))
                 .collect(Collectors.toList());
     }
 

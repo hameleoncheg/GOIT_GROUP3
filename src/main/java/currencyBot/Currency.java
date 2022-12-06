@@ -8,7 +8,9 @@ public enum Currency {
 
     USD("USD", true),
     EUR("EUR", false),
-    PLN("PLN", false);
+    PLN("PLN", false),
+    UAH("UAH", false);
+
     private String currencyName;
     private boolean currencySelect;
     Currency(String currency, boolean select) {

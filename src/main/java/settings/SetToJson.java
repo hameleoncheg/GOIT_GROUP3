@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,12 +38,14 @@ public class SetToJson {
             return settingGsonFile;
         }
 
-    public void load() {
+    public static void load() {
              synchronized (monitor) {
             try {
-                UserHashDTO.userHashDTO = new ObjectMapper().readValue(fileSettingsGsonCheck(),
-                        new TypeReference<Map<Long, UserSetDTO>>() {
+                 ObjectMapper objectMapper = new ObjectMapper();
+                 settings = objectMapper.readValue(
+                        new File(SETTING_GSON_PATH), new TypeReference<Map<Long, Setting>>() {
                         });
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -59,11 +59,11 @@ import java.util.List;
             this.textInfo = textInfo;
         }
 
-        public List<String> getSelectCurrency() {
+        public List<String> getSelectCurr() {
             return selectCurrency;
         }
 
-        public void setSelectCurrency(List<String> selectCurrency) {
-            this.selectCurrency = selectCurrency;
+        public void setSelectCurr(List<String> selectCurr) {
+            this.selectCurrency = selectCurr;
         }
     }

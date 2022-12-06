@@ -51,11 +51,11 @@ public class Setting {
         this.selectedBank = selectedBank;
     }
 
-    public List<Currency> getSelectedCurrency() {
+    public List<Currency> getSelectedCurr() {
         return selectedCurr;
     }
 
-    public void setSelectedCurrency(List<Currency> selectedCurr) {
+    public void setSelectedCurr(List<Currency> selectedCurr) {
         this.selectedCurr = selectedCurr;
     }
 

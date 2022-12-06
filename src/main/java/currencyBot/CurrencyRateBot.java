@@ -94,6 +94,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
     }
     private void handleMessage(Message message) throws TelegramApiException {
         long chatId = message.getChatId();
+        SetToJson.load();
         synchronized (monitor) {
             if (SetToJson.settings.get(chatId) == null) {
                 userSettings = new Setting(chatId, NumberAfterComa.TWO, Banks.PRIVAT,
@@ -171,7 +172,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
 
 
         int numberAfterComa = userSetting.getNumberAfterComa();
-        List<Currency> currencies = userSetting.getSelectedCurrency();
+        List<Currency> currencies = userSetting.getSelectedCurr();
         Banks bank = userSetting.getSelectedBank();
 
         CurrencyRateApiService rateService = getRateService(bank, currencies, numberAfterComa);
@@ -239,7 +240,27 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
             Setting userSetting = SetToJson.settings.get(chatId);
             userSetting.addRemoveCurrency(curr);
             updateMessage(buttonQuery, MenuCurrency.keyboardCurrency(chatId));
+            SetToJson.save();
         }
+
+        //Add/delete bank from settings and refresh menu banks
+        Banks bank = Banks.convertToEnum(dataButtonQuery);
+        if (bank != null){
+            Setting userSetting = SetToJson.settings.get(chatId);
+            userSetting.setSelectedBank(bank);
+            updateMessage(buttonQuery, MenuBank.keyboardBanks(chatId));
+            SetToJson.save();
+        }
+
+        //Add/delete bank from settings and refresh menu numberAfterComa
+        NumberAfterComa numberAfterComa = NumberAfterComa.convertToEnum(dataButtonQuery);
+        if (numberAfterComa != null){
+            Setting userSetting = SetToJson.settings.get(chatId);
+            userSetting.setNumberAfterComa(numberAfterComa);
+            updateMessage(buttonQuery, MenuNumbAfterComa.keyboardNumbAfterComa(chatId));
+            SetToJson.save();
+        }
+
     }
 
 

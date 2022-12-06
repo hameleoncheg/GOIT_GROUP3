@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class MenuSettings {
     public static InlineKeyboardMarkup keyboardSettings(Setting setting){
-        String selectedCurr = setting.getSelectedCurrency().stream()
+        String selectedCurr = setting.getSelectedCurr().stream()
                 .map(Currency::getCurrencyName)
                 .collect(Collectors.joining(", ", "(", ")"));
 

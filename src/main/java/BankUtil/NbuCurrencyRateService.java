@@ -25,24 +25,25 @@ public class NbuCurrencyRateService implements CurrencyRateApiService {
     public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma) throws IOException {
         String text = null;
         text = Jsoup.connect(url).ignoreContentType(true).get().body().text();
-        List<NbuCurrencyResponseDto> responseDtos = convertResponse(text);
+        List<NbuCurrencyResponseDto> responseDtos = convertResponse(text, curr);
         return responseDtos.stream()
                 .map(item -> {
                     RateResponseDto dto = new RateResponseDto();
                     dto.setCurrencyTo(item.getCc());
-                    dto.setRateBuy(item.getRate());
-                    dto.setRateSell(item.getRate());
+                    dto.setRateBuy(CurrencyRateApiService.RoundToDecimalPlaces(item.getRate(),numberAfterComma));
+                    dto.setRateSell(CurrencyRateApiService.RoundToDecimalPlaces(item.getRate(),numberAfterComma));
                     return dto;
                 })
                 .collect(Collectors.toList());
     }
-    private List<NbuCurrencyResponseDto> convertResponse(String response) {
+    private List<NbuCurrencyResponseDto> convertResponse(String response, List<Currency> curr) {
         Type type = TypeToken
                 .getParameterized(List.class, NbuCurrencyResponseDto.class)
                 .getType();
         List<NbuCurrencyResponseDto> responseDtos = gson.fromJson(response, type);
         return  responseDtos.stream()
                 .filter(item -> Currency.USD.equals(item.getCc()) || Currency.EUR.equals(item.getCc()))
+                .filter(item -> curr.contains(item.getCc()))
                 .collect(Collectors.toList());
     }
 }

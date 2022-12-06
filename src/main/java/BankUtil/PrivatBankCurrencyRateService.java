@@ -34,8 +34,8 @@ public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
                     RateResponseDto dto = new RateResponseDto();
                     dto.setCurrencyTo(item.getCcy());
                     dto.setCurrencyFrom(item.getBase_ccy());
-                    dto.setRateBuy(item.getBuy());
-                    dto.setRateSell(item.getSale());
+                    dto.setRateBuy(CurrencyRateApiService.RoundToDecimalPlaces(item.getBuy(),numberAfterComma));
+                    dto.setRateSell(CurrencyRateApiService.RoundToDecimalPlaces(item.getSale(),numberAfterComma));
                     return dto;
                 })
                 .collect(Collectors.toList());

@@ -11,7 +11,7 @@ import java.util.List;
 public class MenuCurrency {
     public static InlineKeyboardMarkup keyboardCurrency(long chatId) {
         Setting userSetting =  SetToJson.settings.get(chatId);
-        List<Currency> selectedCurrencies = userSetting.getSelectedCurrency();
+        List<Currency> selectedCurrencies = userSetting.getSelectedCurr();
         List<List<InlineKeyboardButton>> keyboardMenuCurrency = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMenuCurrency1 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMenuCurrency2 = new ArrayList<>();
