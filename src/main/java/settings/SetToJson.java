@@ -24,6 +24,33 @@ public class SetToJson {
 
     static ExecutorService service = Executors.newSingleThreadExecutor();
 
+
+//    public static String getInfo (Long chatId) {
+//        service.execute(new SaveSettings());
+//        StringBuilder messageToUser = new StringBuilder();
+//        Setting userSetting = settings.get(chatId);
+//        String bankName = userSetting.getSelectedBank().getBankNameUA();
+//        messageToUser.append(bankName).append("\n");
+//        int numberDecPlaces = userSetting.getNumberOfDecimalPlaces();
+//        List<Currency> currencies = userSetting.getSelectedCurrency();
+//        Bank bankInfo = CurrencyDataBase.getCurrentInfo(userSetting.getSelectedBank());
+//        for (Currency currency : currencies) {
+//            messageToUser.append("Курс купівлі ")
+//                    .append(currency.getCurrencyName())
+//                    .append(" - ")
+//                    .append(rateService.getRates(currencies, numberAfterComa))
+//                    //.append(bankInfo.getBuyRate(currency) == 0 ? "немає купівлі" :
+//                    //       format("%." + numberAfterComa + "f" , bankInfo.getBuyRate(currency)))
+//                    .append("\n");
+//            messageToUser.append("Курс продажу ")
+//                    .append(currency.getCurrencyName())
+//                    .append(" - ")
+//                    // .append(bankInfo.getSellRate(currency) == 0 ? "немає продажу" :
+//                    //         format("%." + numberAfterComa + "f" , bankInfo.getSellRate(currency)))
+//                    .append("\n");
+//        }  return messageToUser.toString();
+//    }
+
     public static File fileSettingsGsonCheck() {
         File settingGsonFile = new File(SETTING_GSON_PATH);
         if (!settingGsonFile.exists()) {

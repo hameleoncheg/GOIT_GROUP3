@@ -44,7 +44,6 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
                 .getType();
 
         Map<Integer, Currency> currs = Map.of(
-                980, Currency.PLN,
                 840, Currency.USD,
                 978, Currency.EUR
         );
@@ -61,7 +60,6 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
                 })
                 //.filter(item -> !Currency.RUR.equals(item.getCurrencyCodeA()))
                 .filter(item -> item.getCurrencyA() != null)
-                .filter(item -> item.getCurrencyB() == Currency.PLN)
                 .collect(Collectors.toList());
     }
 

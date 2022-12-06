@@ -18,7 +18,7 @@ public class PrettyResponseConverter {
                         .replaceAll("replCur", item.getCurrencyTo().toString())
                         .replaceAll("replRateBay", item.getRateBuy().toString())
                         .replaceAll("replRateSell", item.getRateSell().toString()))
-                .collect(Collectors.joining("\n"));
+             .collect(Collectors.joining("\n"));
 //        }else if (SELL.equalsIgnoreCase(command)){
 //            response = dtos.stream()
 //                    .map(item -> template

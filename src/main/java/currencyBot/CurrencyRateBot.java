@@ -91,6 +91,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
             }
         }
         checkMainMenu(buttonQuery);
+        checkBankMenu(buttonQuery);
     }
     private void handleMessage(Message message) throws TelegramApiException {
         long chatId = message.getChatId();
@@ -235,6 +236,33 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         }
     }
 
+    public void checkBankMenu(CallbackQuery buttonQuery) throws TelegramApiException {
+        long chatId = buttonQuery.getMessage().getChatId();
+        String dataButtonQuery = buttonQuery.getData();
+        if (Banks.convertToEnum(dataButtonQuery) != null){
+            switch (Banks.convertToEnum(dataButtonQuery)) {
+                case PRIVAT:
+                    if (!userSettings.getSelectedBank().equals(Banks.PRIVAT)) {
+                        saveSelectBanks(buttonQuery, Banks.PRIVAT);
+                    }
+                    break;
+                case NBU:
+                    if (!userSettings.getSelectedBank().equals(Banks.NBU)) {
+                        saveSelectBanks(buttonQuery, Banks.NBU);
+                    }
+                    break;
+                case MONO:
+                    if (!userSettings.getSelectedBank().equals(Banks.MONO)) {
+                        saveSelectBanks(buttonQuery, Banks.MONO);
+                    }
+                    break;
+            }
+        }
+    }
+    private void saveSelectBanks(CallbackQuery buttonQuery, Banks enumData) throws TelegramApiException {
+        userSettings.setSelectedBank(enumData);
+        updateMessage(buttonQuery, MenuBank.keyboardBanks(buttonQuery.getMessage().getChatId()));
+    }
 
 
 }

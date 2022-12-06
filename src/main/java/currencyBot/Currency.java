@@ -18,7 +18,15 @@ public enum Currency {
     public String getCurrencyName() {
         return currencyName;
     }
-   
+    public void setCurrencyName(String currencyName) {
+        this.currencyName = currencyName;
+    }
+    public boolean isCurrencySelect() {
+        return currencySelect;
+    }
+    public void setCurrencySelect(boolean currencySelect) {
+        this.currencySelect = currencySelect;
+    }
     public static List<Currency> getSelectedCurrencyList() {
         List<Currency> selectedCurr = new ArrayList<>();
         for (Currency currency : Currency.values()) {
