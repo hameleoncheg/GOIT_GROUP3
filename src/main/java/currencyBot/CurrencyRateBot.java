@@ -36,7 +36,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
 
     static ExecutorService service = Executors.newSingleThreadExecutor();
 
-    private CurrencyRateBot(String value) {
+    CurrencyRateBot(String value) {
         // The following code emulates slow initialization.
         try {
             Thread.sleep(1000);
