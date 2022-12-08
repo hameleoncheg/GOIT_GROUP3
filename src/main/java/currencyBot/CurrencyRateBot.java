@@ -40,6 +40,19 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         // The following code emulates slow initialization.
         try {
             Thread.sleep(1000);
+            new Thread(() -> {
+                while(true){
+                    try {
+                        Notification.time();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }}).start();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
@@ -258,6 +271,15 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
             Setting userSetting = SetToJson.settings.get(chatId);
             userSetting.setNumberAfterComa(numberAfterComa);
             updateMessage(buttonQuery, MenuNumbAfterComa.keyboardNumbAfterComa(chatId));
+            SetToJson.save();
+        }
+
+        //Add/delete bank from settings and refresh menu banks
+        NotifTime notifTime = NotifTime.convertToEnum(dataButtonQuery);
+        if (notifTime != null){
+            Setting userSetting = SetToJson.settings.get(chatId);
+            userSetting.setNotifTime(notifTime);
+            updateMessage(buttonQuery, MenuNotification.keyboardNotification(chatId));
             SetToJson.save();
         }
 

@@ -82,4 +82,18 @@ public class Setting {
     public void setTimeZone(TimeZone zoneId) {
         this.timeZone = zoneId;
     }
+
+
+    //Oleksandr
+    @Override
+    public String toString() {
+        return "Setting{" +
+                "chatId=" + chatId +
+                ", numberAfterComa=" + numberAfterComa +
+                ", notifTime=" + notifTime +
+                ", timeZone=" + timeZone +
+                ", selectedBank=" + selectedBank +
+                ", selectedCurr=" + selectedCurr +
+                '}';
+    }
 }

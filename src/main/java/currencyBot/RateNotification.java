@@ -11,11 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RateNotification {
-
     public static void main(String[] args) throws IOException {
-        new RateNotification().base();
+        //baseExample();
     }
-    public void base() throws IOException { //витягує час з json
+    public static void baseExample() throws IOException { //витягує час з json
         String root = "src/main/resources/settings.json";
         File file = new File(root);
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -23,9 +22,11 @@ public class RateNotification {
 
         //JSONObject jsonObject = new JSONObject(json);
         //System.out.println(new Setting().getNotifTime().getTime());
+       // System.out.println(SetToJson.settings.get(getChatId(json)));
 
-        System.out.println(getCurrencies(json));
-        timer(SetToJson.settings.get("notifTime"), json);
+       // System.out.println(SetToJson.settings.toString());
+        //System.out.println(getCurrencies(json));
+        //timer(SetToJson.settings.get("notifTime"), json);
 
         //System.out.println(jsonObject);
         //System.out.println(jsonObject.toString().contains("notifTime"));
@@ -58,7 +59,7 @@ public class RateNotification {
         return null;
     }
 
-    private long getChatId(String json){
+    private static long getChatId(String json){
         int k = 0;
         String[] splitter = json.split(String.valueOf('"'));
         for (int i = 0; i < splitter.length; i++) {
@@ -72,7 +73,7 @@ public class RateNotification {
         return 0;
     }
 
-    private List<String> getCurrencies(String json){
+    private static List<String> getCurrencies(String json){
         int k = 0;
         String toFilter;
         String toArray = "";
@@ -134,7 +135,7 @@ public class RateNotification {
 
 
 
-    public void timer(Setting time, String json){ //порівнює час
+    public static void timer(Setting time, String json){ //порівнює час
         String message;
         new Thread(() -> {
             while(true) {
