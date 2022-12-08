@@ -17,10 +17,8 @@ import settings.*;
 import menu.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -49,6 +47,18 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         if (instance == null) {
             instance = new CurrencyRateBot(value);
         }
+
+//        Thread thread = new Thread();
+//        thread.start();
+//        // Wait for the thread to finish
+//        while(thread.isAlive()) {
+//            SetToJson.load();
+//            System.out.println("Settings on constructor create");
+//            System.out.println(SetToJson.settings);
+//            Calendar calendar = Calendar.getInstance();
+//            System.out.println(calendar.getTime());
+//        }
+
         return instance;
     }
     @Override
@@ -169,6 +179,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         Setting userSetting = SetToJson.settings.get(chatId);
         String bankName = userSetting.getSelectedBank().getBankNameUA();
 
+        System.out.println(userSetting);
 
         int numberAfterComa = userSetting.getNumberAfterComa();
         List<Currency> currencies = userSetting.getSelectedCurr();
@@ -254,6 +265,15 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
             Setting userSetting = SetToJson.settings.get(chatId);
             userSetting.setNumberAfterComa(numberAfterComa);
             updateMessage(buttonQuery, MenuNumbAfterComa.keyboardNumbAfterComa(chatId));
+            SetToJson.save();
+        }
+
+        //Add/delete NotifyTime from settings and refresh menu
+        NotifTime notifTime = NotifTime.convertToEnum(dataButtonQuery);
+        if (notifTime != null){
+            Setting userSetting = SetToJson.settings.get(chatId);
+            userSetting.setNotifTime(notifTime);
+            updateMessage(buttonQuery, MenuNotification.keyboardNotification(chatId));
             SetToJson.save();
         }
 

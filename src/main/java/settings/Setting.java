@@ -13,6 +13,17 @@ public class Setting {
 
     public Setting() { }
 
+    @Override
+    public String toString() {
+        return "Setting{" +
+                "chatId=" + chatId +
+                ", numberAfterComa=" + numberAfterComa +
+                ", notifTime=" + notifTime +
+                ", selectedBank=" + selectedBank +
+                ", selectedCurr=" + selectedCurr +
+                '}';
+    }
+
     public Setting(Long chatId, NumberAfterComa numberAfterComa, Banks selectedBank,
                    List<Currency> selectedCurr, NotifTime notifTime) {
         this.chatId = chatId;
