@@ -4,7 +4,6 @@ import BankUtil.MonoBankCurrencyRateService;
 import BankUtil.NbuCurrencyRateService;
 import BankUtil.PrivatBankCurrencyRateService;
 import menu.MenuStart;
-import menu.MenuTimeZone;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageReplyMarkup;
@@ -36,7 +35,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
 
     static ExecutorService service = Executors.newSingleThreadExecutor();
 
-    private CurrencyRateBot(String value) {
+    CurrencyRateBot(String value) {
         // The following code emulates slow initialization.
         try {
             Thread.sleep(1000);
@@ -85,7 +84,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         synchronized (monitor) {
             if (SetToJson.settings.get(chatId) == null) {
                 userSettings = new Setting(chatId, NumberAfterComa.TWO, Banks.PRIVAT,
-                        Currency.getSelectedCurrencyList(), NotifTime.NINE, TimeZone.UTC_THREE);
+                        Currency.getSelectedCurrencyList(), NotifTime.NINE);
             } else {
                 userSettings = SetToJson.settings.get(chatId);
             }
@@ -98,7 +97,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         synchronized (monitor) {
             if (SetToJson.settings.get(chatId) == null) {
                 userSettings = new Setting(chatId, NumberAfterComa.TWO, Banks.PRIVAT,
-                        Currency.getSelectedCurrencyList(), NotifTime.NINE, TimeZone.UTC_THREE);
+                        Currency.getSelectedCurrencyList(), NotifTime.NINE);
             } else {
                 userSettings = SetToJson.settings.get(chatId);
             }
@@ -228,9 +227,6 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
                     break;
                 case NOTIFICATION:
                     updateMessage(buttonQuery, MenuNotification.keyboardNotification(chatId));
-                    break;
-                case ZONEID:
-                    updateMessage(buttonQuery, MenuTimeZone.keyboardTimeZone(chatId));
                     break;
             }
         }

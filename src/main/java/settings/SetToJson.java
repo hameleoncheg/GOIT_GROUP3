@@ -38,7 +38,7 @@ public class SetToJson {
             return settingGsonFile;
         }
 
-    public static void load() {
+    public static void load() throws RuntimeException {
              synchronized (monitor) {
             try {
                  ObjectMapper objectMapper = new ObjectMapper();
@@ -74,7 +74,6 @@ public class SetToJson {
           //      outputSetting.setSelectedBank(parseSelectedBank(v.getSelectedBank()));
            //     outputSetting.setSelectedCurrency(parseCurrency(v.getSelectedCurrency()));
                 outputSetting.setNotifTime(parseNotifTime(v.getNotifTime()));
-                outputSetting.setTimeZone(parseTimeZone(v.getTimeZone()));
                 outputMap.put(v.getChatId(), outputSetting);
             });
         }
@@ -114,15 +113,6 @@ public class SetToJson {
     private NotifTime parseNotifTime(String inputStrNotificationTime) {
         for (NotifTime value : NotifTime.values()) {
             if (inputStrNotificationTime.equals(value.name())) {
-                return value;
-            }
-        }
-        return null;
-    }
-
-    private TimeZone parseTimeZone(String inputStrZoneId) {
-        for (TimeZone value : TimeZone.values()) {
-            if (inputStrZoneId.equals(value.name())) {
                 return value;
             }
         }
