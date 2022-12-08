@@ -7,7 +7,6 @@ public class Setting {
     private Long chatId;
     private NumberAfterComa numberAfterComa;
     private NotifTime notifTime;
-    private TimeZone timeZone;
     private Banks selectedBank;
     private List<Currency> selectedCurr;
 
@@ -15,11 +14,10 @@ public class Setting {
     public Setting() { }
 
     public Setting(Long chatId, NumberAfterComa numberAfterComa, Banks selectedBank,
-                   List<Currency> selectedCurr, NotifTime notifTime, TimeZone timeZone) {
+                   List<Currency> selectedCurr, NotifTime notifTime) {
         this.chatId = chatId;
         this.numberAfterComa = numberAfterComa;
         this.notifTime = notifTime;
-        this.timeZone = timeZone;
         this.selectedBank = selectedBank;
         this.selectedCurr = selectedCurr;
     }
@@ -75,11 +73,4 @@ public class Setting {
         this.notifTime = notifTime;
     }
 
-    public TimeZone getTimeZone() {
-        return timeZone;
-    }
-
-    public void setTimeZone(TimeZone zoneId) {
-        this.timeZone = zoneId;
-    }
 }

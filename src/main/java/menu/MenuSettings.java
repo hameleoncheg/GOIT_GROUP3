@@ -41,10 +41,6 @@ public class MenuSettings {
                 .text(Buttons.NOTIFICATION.getName() + " (" + NotificationTimeSet + ")")
                 .callbackData(Buttons.NOTIFICATION.getNameEN())
                 .build();
-        InlineKeyboardButton buttonTimeZone= InlineKeyboardButton.builder()
-                .text(Buttons.ZONEID.getName() + " (" + setting.getTimeZone().getNameZone() + ")")
-                .callbackData(Buttons.ZONEID.getNameEN())
-                .build();
         InlineKeyboardButton buttonBack = InlineKeyboardButton.builder()
                 .text(Buttons.BACK_TO_START.getName())
                 .callbackData(Buttons.BACK_TO_START.getNameEN())
@@ -54,14 +50,12 @@ public class MenuSettings {
         keyboardMSetRow2.add(buttonBank);
         keyboardMSetRow3.add(buttonCurrency);
         keyboardMSetRow4.add(buttonNotificationTime);
-        keyboardMSetRow5.add(buttonTimeZone);
-        keyboardMSetRow6.add(buttonBack);
+        keyboardMSetRow5.add(buttonBack);
         keyboardMenuSettings.add(keyboardMSetRow1);
         keyboardMenuSettings.add(keyboardMSetRow2);
         keyboardMenuSettings.add(keyboardMSetRow3);
         keyboardMenuSettings.add(keyboardMSetRow4);
         keyboardMenuSettings.add(keyboardMSetRow5);
-        keyboardMenuSettings.add(keyboardMSetRow6);
 
         return InlineKeyboardMarkup.builder().keyboard(keyboardMenuSettings).build();
     }

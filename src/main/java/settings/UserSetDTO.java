@@ -6,7 +6,6 @@ import java.util.List;
         private Long chatId;
         private String numberAfterComa;
         private String notifTime;
-        private String timeZone;
         private String selectBank;
         private String textInfo;
         private List<String> selectCurrency;
@@ -33,14 +32,6 @@ import java.util.List;
 
         public void setNotifTime(String notifTime) {
             this.notifTime = notifTime;
-        }
-
-        public String getTimeZone() {
-            return timeZone;
-        }
-
-        public void setTimeZone(String timeZone) {
-            this.timeZone = timeZone;
         }
 
         public String getSelectBank() {
