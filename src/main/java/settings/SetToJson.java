@@ -23,7 +23,6 @@ public class SetToJson {
     private static final Object monitor = new Object();
     private static final String SETTING_GSON_PATH = "src/main/resources/settings.json";
 
-    static ExecutorService service = Executors.newSingleThreadExecutor();
 
         public static File fileSettingsGsonCheck() {
             File settingGsonFile = new File(SETTING_GSON_PATH);
@@ -60,62 +59,5 @@ public class SetToJson {
                 e.printStackTrace();
             }
         }
-    }
-
-    private void converter(UserHashDTO userHashDTO) {
-        synchronized (monitor) {
-            Map<Long, UserSetDTO> inputMap = userHashDTO.userHashDTO;
-            Map<Long, Setting> outputMap = settings;
-            inputMap.forEach((k, v) -> {
-                Setting outputSetting = new Setting();
-
-                outputSetting.setChatId(v.getChatId());
-                outputSetting.setNumberAfterComa(parseNumberAfterComa(v.getNumberAfterComa()));
-          //      outputSetting.setSelectedBank(parseSelectedBank(v.getSelectedBank()));
-           //     outputSetting.setSelectedCurrency(parseCurrency(v.getSelectedCurrency()));
-                outputSetting.setNotifTime(parseNotifTime(v.getNotifTime()));
-                outputMap.put(v.getChatId(), outputSetting);
-            });
-        }
-    }
-
-    private NumberAfterComa parseNumberAfterComa(String inputStrNumOfDec) {
-        for (NumberAfterComa value : NumberAfterComa.values()) {
-            if (inputStrNumOfDec.equals(value.name())) {
-                return value;
-            }
-        }
-        return null;
-    }
-
-    private Banks parseSelectedBank(String inputStrBank) {
-        for (Banks value : Banks.values()) {
-            if (inputStrBank.equals(value.name())) {
-                return value;
-            }
-        }
-        return null;
-    }
-
-    private List<Currency> parseCurrency(List<String> inputListStrCurrency) {
-        List<Currency> result = new ArrayList<>();
-        for (Currency value : Currency.values()) {
-            for (String oneCurrency : inputListStrCurrency) {
-                if (oneCurrency.equals(value.name())) {
-                    result.add(value);
-                }
-            }
-
-        }
-        return result;
-    }
-
-    private NotifTime parseNotifTime(String inputStrNotificationTime) {
-        for (NotifTime value : NotifTime.values()) {
-            if (inputStrNotificationTime.equals(value.name())) {
-                return value;
-            }
-        }
-        return null;
     }
 }

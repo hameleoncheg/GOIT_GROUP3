@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CurrencyRateBot extends TelegramLongPollingBot {
-    PrettyResponseConverter converter = new PrettyResponseConverter();
+
     private static CurrencyRateBot instance;
     public String value;
     private Setting userSettings;
@@ -34,7 +34,6 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
     static ExecutorService service = Executors.newSingleThreadExecutor();
 
     CurrencyRateBot(String value) {
-        // The following code emulates slow initialization.
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
@@ -47,18 +46,6 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         if (instance == null) {
             instance = new CurrencyRateBot(value);
         }
-
-//        Thread thread = new Thread();
-//        thread.start();
-//        // Wait for the thread to finish
-//        while(thread.isAlive()) {
-//            SetToJson.load();
-//            System.out.println("Settings on constructor create");
-//            System.out.println(SetToJson.settings);
-//            Calendar calendar = Calendar.getInstance();
-//            System.out.println(calendar.getTime());
-//        }
-
         return instance;
     }
     @Override
@@ -132,7 +119,7 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
         }
     }
     private void printMessage(Long chatID, InlineKeyboardMarkup keyboard, String text)
-            throws TelegramApiException {
+                  throws TelegramApiException {
         execute(SendMessage.builder()
                 .text(text)
                 .chatId(chatID)
@@ -173,42 +160,18 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
 
     public static String getInfo (Long chatId) throws IOException {
 
-       // service.execute(new SaveSets());
-       // StringBuilder messageToUser = new StringBuilder();
-
         Setting userSetting = SetToJson.settings.get(chatId);
         String bankName = userSetting.getSelectedBank().getBankNameUA();
-
-        System.out.println(userSetting);
-
         int numberAfterComa = userSetting.getNumberAfterComa();
         List<Currency> currencies = userSetting.getSelectedCurr();
         Banks bank = userSetting.getSelectedBank();
 
         CurrencyRateApiService rateService = getRateService(bank, currencies, numberAfterComa);
 
-        PrettyResponseConverter converter = new PrettyResponseConverter();
-
         StringBuilder messageToUser = new StringBuilder();
         messageToUser.append(bankName).append("\n");
-        messageToUser.append(converter.prepareResponse(rateService.getRates(currencies, numberAfterComa)));
+        messageToUser.append(PrettyResponseConverter.prepareResponse(rateService.getRates(currencies, numberAfterComa)));
 
-
-//        for (Currency currency : currencies) {
-//            messageToUser.append("Курс купівлі ")
-//                    .append(currency.getCurrencyName())
-//                    .append(" - ")
-//                    .append(rateService.getRates(currencies, numberAfterComa))
-//                    //.append(bankInfo.getBuyRate(currency) == 0 ? "немає купівлі" :
-//                    //       format("%." + numberAfterComa + "f" , bankInfo.getBuyRate(currency)))
-//                    .append("\n");
-//            messageToUser.append("Курс продажу ")
-//                    .append(currency.getCurrencyName())
-//                    .append(" - ")
-//                    // .append(bankInfo.getSellRate(currency) == 0 ? "немає продажу" :
-//                    //         format("%." + numberAfterComa + "f" , bankInfo.getSellRate(currency)))
-//                    .append("\n");
-//        }
         return messageToUser.toString();
     }
 

@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
-    List<Currency> curr;
-    int numberAfterComma;
 
     String url = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11";
     private Gson gson = new Gson();
@@ -47,7 +45,6 @@ public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
                 .getType();
         List<PrivatBankCurrencyResponseDto> responseDtos = gson.fromJson(response, type);
         return  responseDtos.stream()
-             //   .filter(item -> !Currency.RUR.equals(item.getCcy()))
                 .filter(item -> curr.contains(item.getCcy()))
                 .collect(Collectors.toList());
     }

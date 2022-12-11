@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Currency {
-   // USD, UAH, EUR, RUR;
 
     USD("USD", true),
     EUR("EUR", false),
-    PLN("PLN", false),
     UAH("UAH", false);
 
     private String currencyName;

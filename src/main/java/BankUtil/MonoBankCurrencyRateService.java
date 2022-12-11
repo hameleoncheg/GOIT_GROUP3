@@ -63,7 +63,6 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
                         item.setCurrencyB(currs.get(item.getCurrencyCodeB()));
                     }
                 })
-                //.filter(item -> !Currency.RUR.equals(item.getCurrencyCodeA()))
                 .filter(item -> item.getCurrencyA() != null)
                 .filter(item -> item.getCurrencyB() == Currency.UAH)
                 .filter(item -> curr.contains(item.getCurrencyA()))

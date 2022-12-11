@@ -26,20 +26,10 @@ public class RateNotification {
         while(true) {
 
             SetToJson.load();
-            System.out.println("Settings on start application");
-            // System.out.println(SetToJson.settings);
-
             List<Setting> list = new ArrayList<Setting>(SetToJson.settings.values());
-            for (Setting s : list) {
-                System.out.println("List: "+s);
-            }
             SimpleDateFormat formatter = new SimpleDateFormat("HH");
             Calendar calendar = Calendar.getInstance();
-            System.out.println(formatter.format(calendar.getTime()));
             NotifTime notifTime = NotifTime.convertToEnum(formatter.format(calendar.getTime()));
-
-            boolean needToSend = true;
-
 
             myList = list.stream()
                     .filter(item -> item.getNotifTime() == notifTime)

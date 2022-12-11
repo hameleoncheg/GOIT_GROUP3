@@ -22,7 +22,6 @@ public class MenuSettings {
         List<InlineKeyboardButton> keyboardMSetRow3 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow4 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardMSetRow5 = new ArrayList<>();
-        List<InlineKeyboardButton> keyboardMSetRow6 = new ArrayList<>();
         InlineKeyboardButton buttonNumAfterComa = InlineKeyboardButton.builder()
                 .text(Buttons.NUM_DECIMAL_PLACES.getName() + " (" + setting.getNumberAfterComa() + ")")
                 .callbackData(Buttons.NUM_DECIMAL_PLACES.getNameEN())

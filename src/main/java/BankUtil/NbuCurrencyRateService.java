@@ -18,9 +18,6 @@ public class NbuCurrencyRateService implements CurrencyRateApiService {
 
     private Gson gson = new Gson();
 
-    List<Currency> curr;
-    int numberAfterComma;
-
     @Override
     public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma) throws IOException {
         String text = null;
