@@ -1,8 +1,8 @@
 package currencyBot;
 
-import BankUtil.MonoBankCurrencyRateService;
-import BankUtil.NbuCurrencyRateService;
-import BankUtil.PrivatBankCurrencyRateService;
+import bankUtil.MonoBankCurrencyRateService;
+import bankUtil.NbuCurrencyRateService;
+import bankUtil.PrivatBankCurrencyRateService;
 import menu.MenuStart;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,7 +17,6 @@ import settings.*;
 import menu.*;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -33,16 +32,12 @@ public class CurrencyRateBot extends TelegramLongPollingBot {
 
     static ExecutorService service = Executors.newSingleThreadExecutor();
 
-    CurrencyRateBot(String value) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+    CurrencyRateBot(String value) throws InterruptedException {
+        Thread.sleep(1000);
         this.value = value;
     }
 
-    public static CurrencyRateBot getInstance(String value) {
+    public static CurrencyRateBot getInstance(String value) throws InterruptedException {
         if (instance == null) {
             instance = new CurrencyRateBot(value);
         }

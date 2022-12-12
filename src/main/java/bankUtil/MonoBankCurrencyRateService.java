@@ -1,4 +1,4 @@
-package BankUtil;
+package bankUtil;
 
 
 import com.google.gson.Gson;
@@ -22,13 +22,10 @@ public class MonoBankCurrencyRateService implements CurrencyRateApiService {
 
     }
 
-    public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma){
+    public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma) throws IOException {
         String text = null;
-        try {
             text = Jsoup.connect(url).ignoreContentType(true).get().body().text();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
         List<MonoBankCurrencyResponseDto> responseDtos = convertResponse(text, curr);
         return responseDtos.stream()
                 .map(item -> {

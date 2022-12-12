@@ -1,4 +1,4 @@
-package BankUtil;
+package bankUtil;
 
 import currencyBot.Currency;
 

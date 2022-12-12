@@ -1,15 +1,11 @@
 package currencyBot;
-import java.io.*;
 
-import BankUtil.MonoBankCurrencyRateService;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import settings.*;
 
-import javax.crypto.spec.PSource;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;

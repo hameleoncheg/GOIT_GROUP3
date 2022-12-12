@@ -1,4 +1,4 @@
-package BankUtil;
+package bankUtil;
 
 
 import com.google.gson.Gson;
@@ -19,13 +19,10 @@ public class PrivatBankCurrencyRateService implements CurrencyRateApiService {
     private Gson gson = new Gson();
 
     @Override
-    public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma){
+    public List<RateResponseDto> getRates(List<Currency> curr, int numberAfterComma) throws IOException {
         String text = null;
-        try {
             text = Jsoup.connect(url).ignoreContentType(true).get().body().text();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
         List<PrivatBankCurrencyResponseDto> responseDtos = convertResponse(text, curr);
         return responseDtos.stream()
                 .map(item -> {

@@ -1,5 +1,5 @@
-package currencyBot;
-
+import currencyBot.CurrencyRateBot;
+import currencyBot.RateNotification;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -16,19 +16,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AppLauncher {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws TelegramApiException, IOException, InterruptedException {
 
-        try {
             CurrencyRateBot currencyRateBot = CurrencyRateBot.getInstance("currencyRateBot");
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(currencyRateBot);
             RateNotification.sendNotify(currencyRateBot);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
+      }
 }

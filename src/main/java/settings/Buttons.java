@@ -8,7 +8,6 @@ public enum Buttons {
     BANK("Банк","Bank"),
     CURRENCY ("Валюта","Currency"),
     NOTIFICATION ("Час сповіщення","Notification"),
-    ZONEID("Часовий пояс","ZoneId"),
     BACK_TO_SETTINGS("↩️","SETTINGS"),
     BACK_TO_START ("🏠️","BACK_TO_START");
 

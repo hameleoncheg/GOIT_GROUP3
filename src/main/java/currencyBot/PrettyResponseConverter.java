@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 
 public class PrettyResponseConverter {
 
-    private static final String ERROR_MESSAGE = "Unknown command, write BUY or SELL";
     private static final String template = "Курс replCur, купівлі: replRateBay; продажу: replRateSell;";
 
     public static String prepareResponse(List<RateResponseDto> dtos) {
@@ -18,10 +17,7 @@ public class PrettyResponseConverter {
                         .replaceAll("replRateBay", item.getRateBuy().toString())
                         .replaceAll("replRateSell", item.getRateSell().toString()))
                 .collect(Collectors.joining("\n"));
-        if (response == "") {
-            response = ERROR_MESSAGE;
 
-        }
         return response;
     }
 }
